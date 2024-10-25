@@ -1,0 +1,43 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Post Detail: </h1>
+    <h2>Title: {{ post.title }}</h2>
+        <img src="{{ post.image.url }}" alt="image" style="width: 500px; height: 400px;">
+
+<h3>Description: {{ post.content }}</h3>
+<h3>Rate: {{ post.rate }}</h3>
+<h3>Created at: {{ post.created_at }}</h3>
+<h3>Category: {{ post.category }}</h3>
+
+    {% for tag in post.tag.all %}
+        <a href="#" class="btn btn-secondary">{{ tag.name }}</a>
+    {% endfor %}
+
+
+
+
+    <h1>Comments</h1>
+    {% for comment in post.comment.all %}
+        <p>{{ comment.text }}</p>
+        <p>{{ comment.created_at }}</p>
+    {% endfor %}
+
+
+    <h3>Create Post:</h3>
+
+    <body>
+   <form action="/post/posts/{{ post.id }}/create_comment/" method="post">
+        {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" name="Create Review">
+</form>
+
+
+
+
+</body>
+
+
+    {% endblock %}
